@@ -12,6 +12,17 @@ addTask("Buy groceries", "Personal", "2026-09-19");
 addTask("Write report", "School", "2026-10-19", "In Progress");
 console.log(tasks)
 
+let statusList = ["To Do", "In Progress", "Done", "Not Started"];
 function updateStatus(taskId, newStatus){
-
+    for (let task of tasks){
+        console.log(task.id);
+        if (task.id === taskId){
+            tasks.id.status = newStatus;
+            break;
+        } else {
+            return "No task with that ID"
+        }
+    }
 }
+
+console.log(updateStatus(1, "Done"))
