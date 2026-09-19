@@ -16,7 +16,21 @@
 - [X]Each task should be stored as an object with properties such as task name, category, deadline, and status.
 - [X]Add the task object to an array that holds all tasks.
 
-### Decisions
+### Steps
+#### Add Tasks
+- [x] Create form with input fields for the `task name`, `category`, `deadline`, and an `initial status` and an `Add Task` button that will add the task to the task list
+- [x] Each task should be stored as an object with properties `task name`, `category`, `deadline`, and `status`
+    ```js
+    { 
+        name: "Make a weekly meal plan", 
+        category: "Personal", 
+        deadline: "9/20/1026", 
+        status: "In Progress"
+    }
+    ```
+#### Update Task Status
+- [X] Allow users to update the status of tasks
 
-#### Status
-> Tasks can have the same name, how will your code know which one you mean? Consider adding one more property beyond the four in the assignment.
+
+
+

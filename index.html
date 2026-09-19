@@ -4,38 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="script.js"></script>
+    <title>Task Management App</title>
+    <script src="app.js" defer></script>
 </head>
 
 <body>
     <main>
         <!-- need two sections add task section and tasks list section -->
+         <!-- Input Fileds Needed:
+            - Task name and deadline needs input tags
+            - Category and Initial Status need select tags 
+          -->
+         <!-- Each input needs an id so app.js can find it with document.getElementById -->
         <section>
             <h2>Add a task</h2>
+
             <form id="task-form">
-                <div>
-                    <div>
+                <div class="form-container">
+
+                    <div class="form-field">
                         <label for="task-name">Task name</label>
                         <input id="task-name" type="text" required maxlength="200" placeholder="Update My Resume">
                     </div>
-                    <div>
+
+                    <!-- <div class="form-field">
                         <label for="task-category">Category</label>
-                        <input id="task-category" type="text" list="category-options" maxlength="50" placeholder="Professional">
+                        <select id="task-category">
+                            <option value="Personal">Personal</option>
+                            <option value="Personal">Work</option>
+                            <option value="Personal">Other</option>
+                        </select>
                     </div>
-                    <div>
+
+                    <div class="form-field">
                         <label for="task-deadline">Deadline</label>
                         <input id="task-deadline" type="date">
                     </div>
-                    <div>
+
+                    <div class="form-field">
                         <label for="task-status">Initial status</label>
-                        <select id="task-status"></select>
-                    </div>
+                        <select id="task-status">
+                            <option id="task-status" value="Not Started">Not Started</option>
+                            <option id="task-status" value="In Progesss">In Progress</option>
+                            <option id="task-status" value="Waiting">Waiting</option>
+                            <option id="task-status" value="Paused">Paused</option>
+                            <option id="task-status" value="Done">Done</option>
+                        </select>
+                    </div> -->
+
                     <div>
-                        <button type="submit" class="primary">Add Task</button>
+                        <button type="button" id="add-task-button">Add Task</button>
                     </div>
                 </div>
-                <datalist id="category-options"></datalist>
             </form>
         </section>
 
