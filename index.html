@@ -49,11 +49,11 @@
                     <div class="form-field">
                         <label for="task-status">Status</label>
                         <select id="task-status">
-                            <option id="task-status" value="Not Started">Not Started</option>
-                            <option id="task-status" value="In Progesss">In Progress</option>
-                            <option id="task-status" value="Waiting">Waiting</option>
-                            <option id="task-status" value="Paused">Paused</option>
-                            <option id="task-status" value="Done">Done</option>
+                            <option value="Not Started">Not Started</option>
+                            <option value="In Progess">In Progress</option>
+                            <option value="Waiting">Waiting</option>
+                            <option value="Paused">Paused</option>
+                            <option value="Done">Done</option>
                         </select>
                     </div>
 
@@ -64,9 +64,10 @@
             </form>
         </section>
 
-        <section>
+        <section id="task-list-section" class="section-card">
             <h2>Tasks</h2>
             <ul id="task-list"></ul>
+            <p id="no-task-message">No Task To Complete! Have Task? Add Them Above</p>
         </section>
     </main>
 </body>
