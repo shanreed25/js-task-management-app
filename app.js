@@ -19,7 +19,7 @@ function addTask(name, category, deadline, status) {
     deadline: deadline,
     status: status,
   };
-
+  console.log(newTask);
   tasks.push(newTask); //add task to tasks list
   clearFields();
 }
@@ -34,16 +34,24 @@ function displayTask() {
         let taskTitle = document.createElement("h3");
         let taskCategory = document.createElement("h4");
         let taskDeadline = document.createElement("h5");
-        let taskStatus = document.createElement("h5");
+        // let taskStatus = document.createElement("h5");
 
         //Give the card the task content
         taskTitle.innerText = task.name;
-        taskCategory.innerText = task.category;
-        taskDeadline.innerText = task.deadline;
-        taskStatus.innerText = task.status;
+        taskCategory.innerText = `Category | ${task.category}`;
+        taskDeadline.innerText = `Deadline | ${task.deadline}`;
+
+
+        // taskStatus.innerText = task.status;
+        //Create status dropdown
+        let statusDropdown = document.createElement("select")
+        let statusOption = document.createElement("option")
+        statusOption.value = task.status
+        statusOption.innerText = task.status
+        statusDropdown.appendChild(statusOption);
 
         //Display Task in HTML
-        taskInfo.append(taskTitle, taskCategory, taskDeadline, taskStatus);
+        taskInfo.append(taskTitle, statusDropdown, taskCategory, taskDeadline );
         taskItem.appendChild(taskInfo);
         taskList.appendChild(taskItem);
     }
@@ -60,7 +68,11 @@ function removeTaskList() {
   taskList.innerHTML = "";
 }
 
+function updateStatus(taskId, newStatus){
+    // let task = tasks.find(t => t.id === taskId);
+    // console.log(task);
 
+}
 
 //==================================================================================
 
