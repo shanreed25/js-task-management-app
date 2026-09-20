@@ -28,8 +28,8 @@
         status: "In Progress"
     }
     ```
-#### Update Task Status
-- [X] Allow users to update the status of tasks
+#### Display Task
+- [X] Display the task list in the HTML
 
 
 

@@ -1,27 +1,43 @@
 let tasks = [];
 
 let taskNameInput = document.getElementById("task-name");
+let taskCategoryInput = document.getElementById("task-category");
 let addTaskButton = document.getElementById("add-task-button");
 let taskList = document.getElementById("task-list");
 
 
 
-function addTask(name){
-    let newTask = {name: name};//create the task
+function addTask(){
+    let taskName = taskNameInput.value;//get the input value
+    if (taskName === ''){
+        alert('Please enter a task')
+        return;
+    }
+    console.log(taskName);
+    let taskCategory = taskCategoryInput.value
+    let newTask = {name: taskName, category: taskCategory};//create the task
+
     tasks.push(newTask);//add task to tasks list
     clearInput()
-    return tasks //return task
+    // return tasks
 };
 
-function displayTask() {//1. Create function to display task list
+function displayTask() {
     for (let task of tasks){//for every task
         let taskItem = document.createElement("li");//create a list element
+        let taskInfo = document.createElement("div");//create a div element to hold task information
+        let taskTitle = document.createElement("h3");
+        let taskCategory = document.createElement("h4");
         // console.log(task);
-        taskItem.innerText = task.name;//give the list element the task name as the content
+        taskTitle.innerText = task.name;//give the list element the task name as the content
+        taskCategory.innerText = task.category;//give the list element the task name as the content
         // console.log(taskItem.innerText);
+        taskInfo.append(taskTitle, taskCategory)
+        taskItem.appendChild(taskInfo)
         taskList.appendChild(taskItem);//add list element to the taskList(ul element)
     }
 }
+
 
 //==================================================================================
 /* These functions are not really needed because its just one line of code 
@@ -32,6 +48,7 @@ rewite it
 */
 function clearInput() {
     taskNameInput.value = ''
+    taskCategoryInput.value = ''
 }
 
 function removeTaskList() {
@@ -42,10 +59,10 @@ function removeTaskList() {
 
 
 addTaskButton.addEventListener("click", function () {
-    let taskName = taskNameInput.value;//get the input value
+    // let taskName = taskNameInput.value;//get the input value
     // console.log(taskName);
-    // console.log(addTask(taskName));
-    addTask(taskName);
+    // console.log(addTask());
+    addTask();
     removeTaskList()//remove the current List of tasks from the HTML
     displayTask();//Display the task list with the new task added
     // console.log("button clicked");

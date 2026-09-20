@@ -9,6 +9,9 @@
 </head>
 
 <body>
+    <header>
+        <h1>Task Management App</h1>
+    </header>
     <main>
         <!-- need two sections add task section and tasks list section -->
          <!-- Input Fileds Needed:
@@ -23,20 +26,22 @@
                 <div class="form-container">
 
                     <div class="form-field">
-                        <label for="task-name">Task name</label>
+                        <label for="task-name">Task</label>
                         <input id="task-name" type="text" required maxlength="200" placeholder="Update My Resume">
-                    </div>
-
-                    <!-- <div class="form-field">
-                        <label for="task-category">Category</label>
-                        <select id="task-category">
-                            <option value="Personal">Personal</option>
-                            <option value="Personal">Work</option>
-                            <option value="Personal">Other</option>
-                        </select>
+                        <span id="task-name-alert"></span>
                     </div>
 
                     <div class="form-field">
+                        <label for="task-category">Category</label>
+                        <select id="task-category">
+                            <option value="" disabled selected hidden>Choose A Category</option>
+                            <option value="Personal">Personal</option>
+                            <option value="Work">Work</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- <div class="form-field">
                         <label for="task-deadline">Deadline</label>
                         <input id="task-deadline" type="date">
                     </div>
