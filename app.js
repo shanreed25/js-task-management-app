@@ -13,8 +13,13 @@ function addTask(){
         alert('Please enter a task')
         return;
     }
-    console.log(taskName);
+
     let taskCategory = taskCategoryInput.value
+    if (taskCategory === ''){
+        taskCategory = "Other"
+    }
+
+    
     let newTask = {name: taskName, category: taskCategory};//create the task
 
     tasks.push(newTask);//add task to tasks list
