@@ -25,3 +25,18 @@ h1 {
     padding: 30px;
     margin-bottom: 20px;
 }
+
+.form-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+#add-task-button{
+    cursor: pointer;
+    border: none;
+    padding: 10px;
+    background-color: #3E5B9C;
+    border-radius: 5px;
+
+}
