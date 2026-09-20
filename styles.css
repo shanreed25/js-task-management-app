@@ -1,0 +1,27 @@
+
+body{
+    background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+    color: #161E2D;
+}
+
+
+/* Centers all the content on the page */
+header, main {
+    margin: 0 auto;
+    max-width: 900px;
+}
+
+h1 {
+    text-align: center;
+}
+
+
+/* Section Cards */
+.section-card {
+    background-color: #FFFFFF;
+    border: 1px solid #161E2D;
+    border-radius: 20px;
+    box-shadow: 0 0 4px 4px #161E2D;
+    padding: 30px;
+    margin-bottom: 20px;
+}
