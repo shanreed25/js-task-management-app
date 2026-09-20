@@ -10,27 +10,53 @@
 - Persist task data using local storage so tasks are saved even after refreshing the page
 
 
-## Adding New Tasks
-- []Create input fields for the task name, category, deadline, and an initial status (e.g., “In Progress”).
-- [X]Include an “Add Task” button that will add the task to the task list.
-- [X]Each task should be stored as an object with properties such as task name, category, deadline, and status.
-- [X]Add the task object to an array that holds all tasks.
+## Objective
+**Create a dynamic task management app that lets users:**
 
-### Steps
-#### Add Tasks
-- [x] Create form with input fields for the `task name`, `category`, `deadline`, and an `initial status` and an `Add Task` button that will add the task to the task list
-- [x] Each task should be stored as an object with properties `task name`, `category`, `deadline`, and `status`
-    ```js
-    { 
-        name: "Make a weekly meal plan", 
-        category: "Personal", 
-        deadline: "9/20/1026", 
-        status: "In Progress"
-    }
-    ```
-#### Display Task
-- [X] Display the task list in the HTML
+- [X]Add new tasks with details such as the task name, category, deadline, and status.
+- []Update the status of tasks to reflect their progress (e.g., “In Progress,” “Completed,” “Overdue”).
+- []Automatically update task status based on the current date (tasks past their deadline will be marked as “Overdue”).
+- []Filter tasks by status or category.
+- []Persist task data using **local storage** so tasks are saved even after refreshing the page.
+
+---
+
+## Project Requirements
+
+### 1. Adding New Tasks
+
+- [X] Create input fields for the **task name**, **category**, **deadline**, and an initial **status** (e.g., “In Progress”).
+- [X] Include an “Add Task” button that will add the task to the task list.
+- [X] Each task should be stored as an **object** with properties such as task name, category, deadline, and status.
+- [X] Add the task object to an **array** that holds all tasks.
+
+### 2. Displaying the Task List
+
+- [X] Create an HTML structure (such as an unordered list or table) to display the task list.
+- [X] For each task, display the **task name**, **category**, **deadline**, and **status**.
+- D[X] ynamically update the task list in the browser each time a new task is added or a status is updated.
+
+### 3. Updating Task Status
+
+- Allow users to **update the status** of tasks (e.g., “In Progress,” “Completed”) via a dropdown or button.
+- Automatically check each task’s deadline and mark tasks as **“Overdue”** if the current date has passed the deadline.
+- Update the displayed task list whenever a task’s status changes.
+
+### 4. Filtering Tasks
+
+- Add functionality to **filter tasks** by category or status (e.g., show only “Completed” tasks or tasks under the “Work” category).
+- Provide a dropdown or set of buttons for users to choose a filter.
+- When a filter is selected, only display the tasks that match the selected category or status.
+
+### 5. Persisting Task Data with Local Storage
+
+- Use **local storage** to save the current state of the task list so that tasks are restored when the page is refreshed.
+- Ensure that task data (including name, category, deadline, and status) is stored and retrieved correctly.
 
 
-
+### Current Status
+> App allows you to
+- Type a task in input and choose a catgory, deadline, and status
+- Click add task button to add the new task. 
+- The task list containing all the tasks, and their category, deadline, and status will be displayed in the HTML page
 

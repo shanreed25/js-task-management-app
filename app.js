@@ -1,74 +1,80 @@
 let tasks = [];
-
 let taskNameInput = document.getElementById("task-name");
 let taskCategoryInput = document.getElementById("task-category");
+let taskDeadlineInput = document.getElementById("task-deadline");
+let taskStatusInput = document.getElementById("task-status");
 let addTaskButton = document.getElementById("add-task-button");
 let taskList = document.getElementById("task-list");
 
 
-
-function addTask(){
-    let taskName = taskNameInput.value;//get the input value
-    if (taskName === ''){
-        alert('Please enter a task')
-        return;
-    }
-
-    let taskCategory = taskCategoryInput.value
-    if (taskCategory === ''){
-        taskCategory = "Other"
-    }
-
-    
-    let newTask = {name: taskName, category: taskCategory};//create the task
+function addTask(name, category, deadline, status){
+    let newTask = {//create the task
+                    name: name, 
+                    category: category, 
+                    deadline: deadline, 
+                    status: status
+                  };
 
     tasks.push(newTask);//add task to tasks list
-    clearInput()
-    // return tasks
+    clearFields()
 };
 
 function displayTask() {
-    for (let task of tasks){//for every task
+    for (let task of tasks){
+
+        //For every task create a Task Card
         let taskItem = document.createElement("li");//create a list element
         let taskInfo = document.createElement("div");//create a div element to hold task information
         let taskTitle = document.createElement("h3");
         let taskCategory = document.createElement("h4");
-        // console.log(task);
-        taskTitle.innerText = task.name;//give the list element the task name as the content
-        taskCategory.innerText = task.category;//give the list element the task name as the content
-        // console.log(taskItem.innerText);
-        taskInfo.append(taskTitle, taskCategory)
+        let taskDeadline = document.createElement("h5");
+        let taskStatus = document.createElement("h5");
+
+        //Give the card the task content
+        taskTitle.innerText = task.name;
+        taskCategory.innerText = task.category;
+        taskDeadline.innerText = task.deadline;
+        taskStatus.innerText = task.status
+
+        //Display Task in HTML
+        taskInfo.append(taskTitle, taskCategory, taskDeadline, taskStatus)
         taskItem.appendChild(taskInfo)
-        taskList.appendChild(taskItem);//add list element to the taskList(ul element)
+        taskList.appendChild(taskItem);
     }
 }
 
+function clearFields() {
+    taskNameInput.value = '';
+    taskCategoryInput.value = "Other"
+    taskStatusInput.value = "Not Started"
 
-//==================================================================================
-/* These functions are not really needed because its just one line of code 
-but using them helps me to easily read a function that uses it and immediately 
-know what it is doing because the functions describe the action, also I may need to
-reuse the functionality, so having a function that does it mean i do not have to
-rewite it
-*/
-function clearInput() {
-    taskNameInput.value = ''
-    taskCategoryInput.value = ''
 }
 
+//removes the taskList from the HTML page
 function removeTaskList() {
     taskList.innerHTML = ""
 }
+
 //==================================================================================
 
 
 
 addTaskButton.addEventListener("click", function () {
-    // let taskName = taskNameInput.value;//get the input value
-    // console.log(taskName);
-    // console.log(addTask());
-    addTask();
+    let taskName = taskNameInput.value;//get the input value
+    if (taskName === ''){
+        alert('Please enter a task');
+        return;
+    }
+
+    let taskCategory = taskCategoryInput.value;
+    let taskDeadline = taskDeadlineInput.value;
+    let taskStatus = taskStatusInput.value;
+
+
+    addTask(taskName, taskCategory, taskDeadline, taskStatus );
     removeTaskList()//remove the current List of tasks from the HTML
     displayTask();//Display the task list with the new task added
-    // console.log("button clicked");
+    
 });
+
+console.log(taskCategoryInput.value);
