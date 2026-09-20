@@ -59,4 +59,5 @@
 - Type a task in input and choose a catgory, deadline, and status
 - Click add task button to add the new task. 
 - The task list containing all the tasks, and their category, deadline, and status will be displayed in the HTML page
+- If there rae no tasks, there is a no task message displayed
 

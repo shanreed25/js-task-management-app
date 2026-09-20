@@ -8,9 +8,12 @@ let taskList = document.getElementById("task-list");
 let taskListSection = document.getElementById("task-list-section");
 let noTaskMessage = document.getElementById("no-task-message");
 
+
+let taskId = 1;
 function addTask(name, category, deadline, status) {
   let newTask = {
     //create the task
+    id: taskId++,
     name: name,
     category: category,
     deadline: deadline,
@@ -27,6 +30,7 @@ function displayTask() {
         //For every task create a Task Card
         let taskItem = document.createElement("li"); //create a list element
         let taskInfo = document.createElement("div"); //create a div element to hold task information
+        taskInfo.classList.add("task");
         let taskTitle = document.createElement("h3");
         let taskCategory = document.createElement("h4");
         let taskDeadline = document.createElement("h5");
@@ -55,6 +59,8 @@ function clearFields() {
 function removeTaskList() {
   taskList.innerHTML = "";
 }
+
+
 
 //==================================================================================
 
