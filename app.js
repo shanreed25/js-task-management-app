@@ -7,7 +7,9 @@ let addTaskButton = document.getElementById("add-task-button");
 let taskList = document.getElementById("task-list");
 let taskListSection = document.getElementById("task-list-section");
 let noTaskMessage = document.getElementById("no-task-message");
+let statusDropdown = document.createElement("select")
 
+const STATUES = ["Not Started", "In Progress", "Paused", "Done"]
 
 let taskId = 1;
 function addTask(name, category, deadline, status) {
@@ -44,11 +46,22 @@ function displayTask() {
 
         // taskStatus.innerText = task.status;
         //Create status dropdown
-        let statusDropdown = document.createElement("select")
-        let statusOption = document.createElement("option")
-        statusOption.value = task.status
-        statusOption.innerText = task.status
-        statusDropdown.appendChild(statusOption);
+        
+        for(let item of STATUES){
+          let statusOption = document.createElement("option");
+          statusOption.value = item;
+          statusOption.innerText = item;
+          console.log(item);
+          console.log(task.status);
+          if(item === task.status){
+            statusOption.selected = true;
+          }
+          statusDropdown.appendChild(statusOption)
+        }
+        // let notStartedOption = document.createElement("option")
+        // notStartedOption.value = task.status
+        // notStartedOption.innerText = task.status
+        // statusDropdown.appendChild(notStartedOption);
 
         //Display Task in HTML
         taskInfo.append(taskTitle, statusDropdown, taskCategory, taskDeadline );
@@ -69,8 +82,9 @@ function removeTaskList() {
 }
 
 function updateStatus(taskId, newStatus){
-    // let task = tasks.find(t => t.id === taskId);
-    // console.log(task);
+    let task = tasks.find(t => t.id === taskId);
+    task.status = newStatus
+    console.log(task);
 
 }
 
@@ -95,4 +109,8 @@ addTaskButton.addEventListener("click", function () {
   
 });
 
-
+statusDropdown.addEventListener("click", function (e){
+  // let newStatus = statusDropdown.value
+  // console.log(task);
+  console.log(statusDropdown.value)
+})
