@@ -56,8 +56,9 @@
 
 ### Current Status
 > App allows you to
-- Type a task in input and choose a catgory, deadline, and status
-- Click add task button to add the new task. 
-- The task list containing all the tasks, and their category, deadline, and status will be displayed in the HTML page
-- If there are no tasks, there is a no task message displayed
-
+- This code allows you to type task in input and choose a catgory, deadline, and status then click add task button to add the new task. 
+- Each task has an id properrty that I will need to access a task to update it
+- The task list containing all the tasks, and their category, deadline, status and an edit button will be displayed in the HTML page. 
+- Each task has an event listener that is inside the createTaskElements() function because this is where I have access to the id.
+- Currently when the button is clicked i get access to the id, which  is only looged in the console for now
+- If there are no tasks, there is a no task message displayed.

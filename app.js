@@ -71,6 +71,7 @@ function createTaskElements(){
           let tagClicked = e.target.tagName;
           console.log(e);
           if (tagClicked === "BUTTON"){
+            //create a sort of add task form that can be edited
             console.log(`Button clicked for task with id of ${task.id}`);
           } else {
             console.log("Something else was clicked");
