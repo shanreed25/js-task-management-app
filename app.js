@@ -57,6 +57,25 @@ function createTaskElements(){
         taskInfo.append(taskTitle, taskStatus, taskCategory, taskDeadline, taskEditButton );
         taskItem.append(taskInfo);
         taskList.appendChild(taskItem);
+
+        //this function is where I have access to the id from each task
+        taskItem.addEventListener("click", function (e) {
+          /*addeventlistener comes with and event object,
+          it is already there you just have to access it
+          on that event object there are a lot of properties
+          one of which is a target propert,y which will tell you
+          the entire element that was clicked including the tag, to get just the tag name 
+          use e.target.tagName
+          */
+          console.log(e.target.tagName);
+          let tagClicked = e.target.tagName;
+          console.log(e);
+          if (tagClicked === "BUTTON"){
+            console.log(`Button clicked for task with id of ${task.id}`);
+          } else {
+            console.log("Something else was clicked");
+          }
+        });
     }
 }
 
@@ -78,12 +97,20 @@ function removeTaskList() {
   taskList.innerHTML = "";
 }
 
-function updateStatus(taskId, newStatus){
+
+function updateTask(taskId){
     let task = tasks.find(t => t.id === taskId);
-    task.status = newStatus
-    return task;
+    console.log(task)
 
 }
+
+
+// function updateTask(taskId, newTaskInfo){
+//     let task = tasks.find(t => t.id === taskId);
+//     task.status = newStatus
+//     return task;
+
+// }
 
 
 displayTask();
