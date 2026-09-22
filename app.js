@@ -7,7 +7,7 @@ let addTaskButton = document.getElementById("add-task-button");
 let taskList = document.getElementById("task-list");
 let taskListSection = document.getElementById("task-list-section");
 let noTaskMessage = document.getElementById("no-task-message");
-let statusDropdown = document.createElement("select")
+// let statusDropdown = document.createElement("select")
 
 const STATUES = ["Not Started", "In Progress", "Paused", "Done"]
 
@@ -34,37 +34,19 @@ function displayTask() {
         let taskInfo = document.createElement("div"); //create a div element to hold task information
         taskInfo.classList.add("task");
         let taskTitle = document.createElement("h3");
-        let taskCategory = document.createElement("h4");
+        let taskCategory = document.createElement("h5");
         let taskDeadline = document.createElement("h5");
-        // let taskStatus = document.createElement("h5");
+        let taskStatus = document.createElement("h5");
 
         //Give the card the task content
         taskTitle.innerText = task.name;
         taskCategory.innerText = `Category | ${task.category}`;
         taskDeadline.innerText = `Deadline | ${task.deadline}`;
-
-
-        // taskStatus.innerText = task.status;
-        //Create status dropdown
+        taskStatus.innerText = `Status | ${task.status}`;
         
-        for(let item of STATUES){
-          let statusOption = document.createElement("option");
-          statusOption.value = item;
-          statusOption.innerText = item;
-          console.log(item);
-          console.log(task.status);
-          if(item === task.status){
-            statusOption.selected = true;
-          }
-          statusDropdown.appendChild(statusOption)
-        }
-        // let notStartedOption = document.createElement("option")
-        // notStartedOption.value = task.status
-        // notStartedOption.innerText = task.status
-        // statusDropdown.appendChild(notStartedOption);
 
         //Display Task in HTML
-        taskInfo.append(taskTitle, statusDropdown, taskCategory, taskDeadline );
+        taskInfo.append(taskTitle, taskStatus, taskCategory, taskDeadline );
         taskItem.appendChild(taskInfo);
         taskList.appendChild(taskItem);
     }
@@ -81,12 +63,7 @@ function removeTaskList() {
   taskList.innerHTML = "";
 }
 
-function updateStatus(taskId, newStatus){
-    let task = tasks.find(t => t.id === taskId);
-    task.status = newStatus
-    console.log(task);
 
-}
 
 //==================================================================================
 
@@ -114,3 +91,7 @@ statusDropdown.addEventListener("click", function (e){
   // console.log(task);
   console.log(statusDropdown.value)
 })
+
+
+//===================================================
+
