@@ -59,23 +59,31 @@ function createTaskElements(){
         taskItem.append(taskInfo);
         taskList.appendChild(taskItem);
 
-        //this function is where I have access to the id from each task
+        //Edit Task
         taskItem.addEventListener("click", function (e) {
-          let updateInput = document.createElement("input");//create new input
+          let updateName = document.createElement("input");//create new input
+          let updateDeadline = document.createElement("input");
+          updateDeadline.type = "date";
           let saveButton = document.createElement("button");//create save button
           if (e.target === taskEditButton){
             saveButton.innerText = "SAVE";
-            saveButton.id = "save-task-button"
+            saveButton.id = "save-task-button";
+            updateName.value = task.name;
+            updateDeadline.value = task.deadline;
 
-            updateInput.value = task.name;
-
-            taskTitle.replaceWith(updateInput);//replace title with input 
+            taskTitle.replaceWith(updateName);//replace title with input 
+            taskDeadline.replaceWith(updateDeadline);
             taskEditButton.replaceWith(saveButton);//replace edit button with save button
 
             saveButton.addEventListener("click", function(){
-              task.name = updateInput.value
-              taskTitle.innerText = task.name
-              updateInput.replaceWith(taskTitle);
+              task.name = updateName.value;//adding it to the task object
+              task.deadline = updateDeadline.value;
+
+              taskTitle.innerText = task.name;//adding update to the title
+              taskDeadline.innerText = task.deadline;
+
+              updateDeadline.replaceWith(taskDeadline);
+              updateName.replaceWith(taskTitle);
               saveButton.replaceWith(taskEditButton)
               console.log(`Saved: ${task.name}`);
             });
