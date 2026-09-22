@@ -51,6 +51,7 @@ function createTaskElements(){
         taskDeadline.innerText = `Deadline | ${task.deadline}`;
         taskStatus.innerText = `Status | ${task.status}`;
         taskEditButton.innerText = "EDIT";
+        // taskEditButton.id = `${task.id}-edit-button`;
         
 
         //Display Task in HTML
@@ -60,23 +61,30 @@ function createTaskElements(){
 
         //this function is where I have access to the id from each task
         taskItem.addEventListener("click", function (e) {
-          /*addeventlistener comes with and event object,
-          it is already there you just have to access it
-          on that event object there are a lot of properties
-          one of which is a target propert,y which will tell you
-          the entire element that was clicked including the tag, to get just the tag name 
-          use e.target.tagName
-          */
-          console.log(e.target.tagName);
-          let tagClicked = e.target.tagName;
-          console.log(e);
-          if (tagClicked === "BUTTON"){
-            //create a sort of add task form that can be edited
-            console.log(`Button clicked for task with id of ${task.id}`);
-          } else {
-            console.log("Something else was clicked");
-          }
-        });
+          let updateInput = document.createElement("input");//create new input
+          let saveButton = document.createElement("button");//create save button
+          if (e.target === taskEditButton){
+            saveButton.innerText = "SAVE";
+            saveButton.id = "save-task-button"
+
+            updateInput.value = task.name;
+
+            taskTitle.replaceWith(updateInput);//replace title with input 
+            taskEditButton.replaceWith(saveButton);//replace edit button with save button
+
+            saveButton.addEventListener("click", function(){
+              task.name = updateInput.value
+              taskTitle.innerText = task.name
+              updateInput.replaceWith(taskTitle);
+              saveButton.replaceWith(taskEditButton)
+              console.log(`Saved: ${task.name}`);
+            });
+
+            console.log(task.name)
+            console.log(`Edit Button clicked for task with id of ${task.id}`);
+            
+        }
+      });
     }
 }
 
