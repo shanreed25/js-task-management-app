@@ -14,7 +14,7 @@
 **Create a dynamic task management app that lets users:**
 
 - [X] Add new tasks with details such as the task name, category, deadline, and status.
-- [] Update the status of tasks to reflect their progress (e.g., “In Progress,” “Completed,” “Overdue”).
+- [X] Update the status of tasks to reflect their progress (e.g., “In Progress,” “Completed,” “Overdue”).
 - [] Automatically update task status based on the current date (tasks past their deadline will be marked as “Overdue”).
 - [] Filter tasks by status or category.
 - [] Persist task data using **local storage** so tasks are saved even after refreshing the page.
@@ -34,13 +34,13 @@
 
 - [X] Create an HTML structure (such as an unordered list or table) to display the task list.
 - [X] For each task, display the **task name**, **category**, **deadline**, and **status**.
-- D[X] ynamically update the task list in the browser each time a new task is added or a status is updated.
+- [X] Dynamically update the task list in the browser each time a new task is added or a status is updated.
 
 ### 3. Updating Task Status
 
-- Allow users to **update the status** of tasks (e.g., “In Progress,” “Completed”) via a dropdown or button.
-- Automatically check each task’s deadline and mark tasks as **“Overdue”** if the current date has passed the deadline.
-- Update the displayed task list whenever a task’s status changes.
+- [X] Allow users to **update the status** of tasks (e.g., “In Progress,” “Completed”) via a dropdown or button.
+- [ ] Automatically check each task’s deadline and mark tasks as **“Overdue”** if the current date has passed the deadline.
+- [X] Update the displayed task list whenever a task’s status changes.
 
 ### 4. Filtering Tasks
 

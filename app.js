@@ -23,9 +23,9 @@ function addDropdownValues(el, options){
     dropOptionElement.innerText = options[i];
     el.appendChild(dropOptionElement);
   
-    console.log(dropOptionElement);
+    // console.log(dropOptionElement);
   }
-    console.log(el);
+    // console.log(el);
 }
 
 addDropdownValues(taskCategoryInput, CATEGORIES);
@@ -71,7 +71,18 @@ function createTaskElements(){
         taskTitle.innerText = task.name;
         taskCategory.innerText = `Category | ${task.category}`;
         taskDeadline.innerText = `Deadline | ${task.deadline}`;
-        taskStatus.innerText = `Status | ${task.status}`;
+
+        let now = Date.now();
+        taskDate = new Date(task.deadline).getTime();
+          console.log(now);
+          console.log(taskDate);
+        if (taskDate < Date.now()){
+          taskStatus.innerText = "Overdue";
+          console.log("overdue");
+        } else {
+          taskStatus.innerText = `Status | ${task.status}`;
+        }
+        
         taskEditButton.innerText = "EDIT";
         // taskEditButton.id = `${task.id}-edit-button`;
         
@@ -80,6 +91,8 @@ function createTaskElements(){
         taskInfo.append(taskTitle, taskStatus, taskCategory, taskDeadline, taskEditButton );
         taskItem.append(taskInfo);
         taskList.appendChild(taskItem);
+
+        
 
         //Edit Task
         taskItem.addEventListener("click", function (e) {
@@ -96,6 +109,8 @@ function createTaskElements(){
             updateDeadlineInput.value = task.deadline;
             addDropdownValues(updateCategoryInput, CATEGORIES);
             addDropdownValues(updateStatusInput, STATUSES);
+            updateCategoryInput.value = task.category;
+            updateStatusInput.value = task.status;
 
             taskTitle.replaceWith(updateNameInput);//replace title with input 
             taskDeadline.replaceWith(updateDeadlineInput);
@@ -107,12 +122,12 @@ function createTaskElements(){
               task.name = updateNameInput.value;//adding it to the task object
               task.deadline = updateDeadlineInput.value;
               task.category = updateCategoryInput.value;
-              task.status = updateStatusInput.value
+              task.status = updateStatusInput.value;
 
               taskTitle.innerText = task.name;//adding update to the title
               taskDeadline.innerText = `Deadline | ${task.deadline}`;
               taskCategory.innerText = `Category | ${task.category}`;
-              taskStatus.innerText = task.status
+              taskStatus.innerText = `Status | ${task.status}`
 
               updateDeadlineInput.replaceWith(taskDeadline);
               updateNameInput.replaceWith(taskTitle);
