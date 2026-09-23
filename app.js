@@ -7,12 +7,10 @@ let taskList = document.getElementById("task-list");
 let taskListSection = document.getElementById("task-list-section");
 let noTaskMessage = document.getElementById("no-task-message");
 
-//the first item in this array should always be "Other", 
-// because it is the default
-const CATEGORIES = [ "Other", "Personal", "Work",];
+// CATEGORIES[0] is the default used by clearFields()
+const CATEGORIES = [ "General", "Personal", "Work",];
 
-//the first item in this array should always be "Not Started", 
-// because it is the default
+// STATUSES[0] is the default used by clearFields()
 const STATUSES = ["Not Started", "In Progress", "Paused", "Done"];
 
 console.log(STATUSES.includes("In Progress"));
@@ -21,8 +19,6 @@ function addDropdownValues(el, options){
   
   for (let i =0; i < options.length; i++){
     let dropOptionElement = document.createElement("option");
-    // console.log(`i alone returns the index: ${i}`);
-    // console.log(`options[i] returns the value at that index: ${options[i]}`);
     dropOptionElement.value= options[i];
     dropOptionElement.innerText = options[i];
     el.appendChild(dropOptionElement);
@@ -30,7 +26,6 @@ function addDropdownValues(el, options){
     console.log(dropOptionElement);
   }
     console.log(el);
-
 }
 
 addDropdownValues(taskCategoryInput, CATEGORIES);

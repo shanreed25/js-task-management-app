@@ -60,7 +60,9 @@
 - The task list containing all the tasks, and their category, deadline, status and an edit button will be displayed in the HTML page. 
 - If there are no tasks, there is a no task message displayed.
 - Each task has an event listener that is inside the createTaskElements() function because this is where I have access to the id.
+- The category and status options in the form are added through JavaScript when the page loads
 - Currently when the edit button
     - the edit button is removed and a save button appears in its place
     - I can edit the task name and deadline
+
 
