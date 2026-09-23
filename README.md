@@ -63,6 +63,6 @@
 - The category and status options in the form are added through JavaScript when the page loads
 - Currently when the edit button
     - the edit button is removed and a save button appears in its place
-    - I can edit the task name and deadline
+    - I can edit the task name, deadline, status, and category
 
 

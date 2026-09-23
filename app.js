@@ -83,29 +83,41 @@ function createTaskElements(){
 
         //Edit Task
         taskItem.addEventListener("click", function (e) {
-          let updateName = document.createElement("input");//create new input
-          let updateDeadline = document.createElement("input");
-          updateDeadline.type = "date";
+          let updateNameInput = document.createElement("input");//create new input
+          let updateDeadlineInput = document.createElement("input");
+          let updateCategoryInput = document.createElement("select");
+          let updateStatusInput = document.createElement("select");
+          updateDeadlineInput.type = "date";
           let saveButton = document.createElement("button");//create save button
           if (e.target === taskEditButton){
             saveButton.innerText = "SAVE";
             saveButton.id = "save-task-button";
-            updateName.value = task.name;
-            updateDeadline.value = task.deadline;
+            updateNameInput.value = task.name;
+            updateDeadlineInput.value = task.deadline;
+            addDropdownValues(updateCategoryInput, CATEGORIES);
+            addDropdownValues(updateStatusInput, STATUSES);
 
-            taskTitle.replaceWith(updateName);//replace title with input 
-            taskDeadline.replaceWith(updateDeadline);
+            taskTitle.replaceWith(updateNameInput);//replace title with input 
+            taskDeadline.replaceWith(updateDeadlineInput);
+            taskCategory.replaceWith(updateCategoryInput);
+            taskStatus.replaceWith(updateStatusInput);
             taskEditButton.replaceWith(saveButton);//replace edit button with save button
 
             saveButton.addEventListener("click", function(){
-              task.name = updateName.value;//adding it to the task object
-              task.deadline = updateDeadline.value;
+              task.name = updateNameInput.value;//adding it to the task object
+              task.deadline = updateDeadlineInput.value;
+              task.category = updateCategoryInput.value;
+              task.status = updateStatusInput.value
 
               taskTitle.innerText = task.name;//adding update to the title
-              taskDeadline.innerText = task.deadline;
+              taskDeadline.innerText = `Deadline | ${task.deadline}`;
+              taskCategory.innerText = `Category | ${task.category}`;
+              taskStatus.innerText = task.status
 
-              updateDeadline.replaceWith(taskDeadline);
-              updateName.replaceWith(taskTitle);
+              updateDeadlineInput.replaceWith(taskDeadline);
+              updateNameInput.replaceWith(taskTitle);
+              updateCategoryInput.replaceWith(taskCategory)
+              updateStatusInput.replaceWith(taskStatus)
               saveButton.replaceWith(taskEditButton)
               console.log(`Saved: ${task.name}`);
             });
@@ -122,8 +134,6 @@ function displayTask() {
     noTaskMessage.hidden = tasks.length > 0;//Clears no tasks message when there are tasks
     createTaskElements();
 }
-
-
 
 function clearFields() {
   taskNameInput.value = "";
@@ -142,14 +152,6 @@ function updateTask(taskId){
     console.log(task)
 
 }
-
-
-// function updateTask(taskId, newTaskInfo){
-//     let task = tasks.find(t => t.id === taskId);
-//     task.status = newStatus
-//     return task;
-
-// }
 
 
 displayTask();
