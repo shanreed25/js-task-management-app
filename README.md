@@ -39,7 +39,7 @@
 ### 3. Updating Task Status
 
 - [X] Allow users to **update the status** of tasks (e.g., “In Progress,” “Completed”) via a dropdown or button.
-- [ ] Automatically check each task’s deadline and mark tasks as **“Overdue”** if the current date has passed the deadline.
+- [X] Automatically check each task’s deadline and mark tasks as **“Overdue”** if the current date has passed the deadline.
 - [X] Update the displayed task list whenever a task’s status changes.
 
 ### 4. Filtering Tasks

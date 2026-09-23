@@ -28,6 +28,24 @@ function addDropdownValues(el, options){
     // console.log(el);
 }
 
+function addFilterDropDowns(){
+  let filterCategoryDropdown = document.createElement("select");
+  let filterStatusDropdown = document.createElement("select");
+  let filterCategoryDropdownLabel = document.createElement("label");
+  filterCategoryDropdownLabel.innerText = "Filter By Category";
+  let filterStatusDropdownLabel = document.createElement("label");
+  filterStatusDropdownLabel.innerText = "Filter By Status";
+
+  
+  addDropdownValues(filterCategoryDropdown, CATEGORIES);
+  addDropdownValues(filterStatusDropdown, STATUSES);
+  
+  taskListSection.prepend(filterCategoryDropdown);
+  taskListSection.prepend(filterCategoryDropdownLabel)
+  taskListSection.prepend(filterStatusDropdown);
+  taskListSection.prepend(filterStatusDropdownLabel)
+}
+
 addDropdownValues(taskCategoryInput, CATEGORIES);
 addDropdownValues(taskStatusInput, STATUSES);
 
@@ -45,13 +63,15 @@ function addTask(name, category, deadline, status) {
     deadline: deadline,
     status: status,
   };
-  console.log(newTask);
+  // console.log(newTask);
   tasks.push(newTask); //add task to tasks list
   clearFields();
 }
 
 //Create a task item list to be displayed in the UI
 function createTaskElements(){
+  addFilterDropDowns();
+  
       for (let task of tasks) {
         //
         /*
