@@ -12,6 +12,8 @@
 
 ## Reflection
 > One of the hardest parts was a simplest feature, surprisingly, the "no tasks" message. I kept trying to create and remove that element on every render, which added extra logic each time. Once I stopped overthinking it, I put the message in the HTML once and showed or hid it based on whether the filtered list was empty. The lesson was that stable parts of the page belong in the HTML, and JavaScript only needs to toggle them. Local storage was also a bit tricky because it was one of the last things I did I had to refactor some things to get it to work. Filtering was a little hard I got the category to filter but could not figure out why status was not filtering correctly. Testing with `console.log()` made bugs easier to isolate. With more time, I would have fix the bug in the status filter, added deleting tasks, made the UI look a little better and refactored my code.
+
+
 ### Current Status
 - Code allows you to type task in input and choose a catgory, deadline, and status then click add task button to add the new task. 
 - Each task has an id properrty that I will need to access a task to update it

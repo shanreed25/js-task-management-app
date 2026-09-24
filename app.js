@@ -24,10 +24,7 @@ function addDropdownValues(el, options){
     dropOptionElement.value= options[i];
     dropOptionElement.innerText = options[i];
     el.appendChild(dropOptionElement);
-  
-    // console.log(dropOptionElement);
   }
-    // console.log(el);
 }
 
 function addFilterDropDowns(){
@@ -277,15 +274,7 @@ function addTask(name, category, deadline, status) {
   clearFields();
 }
 
-//Create a task item list to be displayed in the UI
-function createTaskElements(){
-  
-      for (let task of tasks) {
-        //
-        /*
-          For every task create a Task Card with this shape
-          <li><div><h3></h3><h5></h5><h5></h5><h5></h5></div><button></button></li>
-        */
+function createTaskCard(task){
         let taskItem = document.createElement("li");
         let taskInfo = document.createElement("div");
         taskInfo.className = "task";
@@ -318,7 +307,7 @@ function createTaskElements(){
         //Display Task in HTML
         taskInfo.append(taskTitle, taskStatus, taskCategory, taskDeadline, taskEditButton );
         taskItem.append(taskInfo);
-        taskList.appendChild(taskItem);
+        // taskList.appendChild(taskItem);
 
         
 
@@ -371,7 +360,17 @@ function createTaskElements(){
             
         }
       });
-    }
+
+      return taskItem; //return card
+}
+// createTaskCard(tasks[0])
+
+//Create a task item list to be displayed in the UI
+function createTaskElements(){
+      for (let task of tasks) {
+        const taskCard = createTaskCard(task)
+        taskList.appendChild(taskCard);
+      }
 }
 
 function displayTask() {
