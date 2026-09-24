@@ -10,48 +10,8 @@
 - Persist task data using local storage so tasks are saved even after refreshing the page
 
 
-## Objective
-**Create a dynamic task management app that lets users:**
-
-- [X] Add new tasks with details such as the task name, category, deadline, and status.
-- [X] Update the status of tasks to reflect their progress (e.g., “In Progress,” “Completed,” “Overdue”).
-- [X] Automatically update task status based on the current date (tasks past their deadline will be marked as “Overdue”).
-- [X] Filter tasks by status or category.
-- [X] Persist task data using **local storage** so tasks are saved even after refreshing the page.
-
----
-
-## Project Requirements
-
-### 1. Adding New Tasks
-
-- [X] Create input fields for the **task name**, **category**, **deadline**, and an initial **status** (e.g., “In Progress”).
-- [X] Include an “Add Task” button that will add the task to the task list.
-- [X] Each task should be stored as an **object** with properties such as task name, category, deadline, and status.
-- [X] Add the task object to an **array** that holds all tasks.
-
-### 2. Displaying the Task List
-
-- [X] Create an HTML structure (such as an unordered list or table) to display the task list.
-- [X] For each task, display the **task name**, **category**, **deadline**, and **status**.
-- [X] Dynamically update the task list in the browser each time a new task is added or a status is updated.
-
-### 3. Updating Task Status
-
-- [X] Allow users to **update the status** of tasks (e.g., “In Progress,” “Completed”) via a dropdown or button.
-- [X] Automatically check each task’s deadline and mark tasks as **“Overdue”** if the current date has passed the deadline.
-- [X] Update the displayed task list whenever a task’s status changes.
-
-### 4. Filtering Tasks
-
-- [X] Add functionality to **filter tasks** by category or status (e.g., show only “Completed” tasks or tasks under the “Work” category).
-- [X] Provide a dropdown or set of buttons for users to choose a filter.
-- [X] When a filter is selected, only display the tasks that match the selected category or status.
-
-### 5. Persisting Task Data with Local Storage
-
-- [X] Use **local storage** to save the current state of the task list so that tasks are restored when the page is refreshed.
-- [X] Ensure that task data (including name, category, deadline, and status) is stored and retrieved correctly.
+## Reflection
+> One of the hardest parts was a simplest feature, surprisingly, the "no tasks" message. I kept trying to create and remove that element on every render, which added extra logic each time. Once I stopped overthinking it, I put the message in the HTML once and showed or hid it based on whether the filtered list was empty. The lesson was that stable parts of the page belong in the HTML, and JavaScript only needs to toggle them. Local storage was also a bit tricky because it was one of the last things I did I had to refactor some things to get it to work. Filtering was a little hard I got the category to filter but could not figure out why status was not filtering correctly. Testing with `console.log()` made bugs easier to isolate. With more time, I would have fix the bug in the status filter, added deleting tasks, made the UI look a little better and refactored my code.
 
 
 ### Current Status
