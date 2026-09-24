@@ -9,7 +9,7 @@ let noTaskMessage = document.getElementById("no-task-message");
 
 // CATEGORIES[0] is the default used by clearFields()
 const CATEGORIES = [ "General", "Personal", "Work",];
-
+const FILTERCATEGORIES = [ "All", "General", "Personal", "Work",];
 // STATUSES[0] is the default used by clearFields()
 const STATUSES = ["Not Started", "In Progress", "Paused", "Done"];
 
@@ -31,19 +31,111 @@ function addDropdownValues(el, options){
 function addFilterDropDowns(){
   let filterCategoryDropdown = document.createElement("select");
   let filterStatusDropdown = document.createElement("select");
+  let filterStatusOption = document.createElement("select");
   let filterCategoryDropdownLabel = document.createElement("label");
   filterCategoryDropdownLabel.innerText = "Filter By Category";
   let filterStatusDropdownLabel = document.createElement("label");
   filterStatusDropdownLabel.innerText = "Filter By Status";
 
-  
-  addDropdownValues(filterCategoryDropdown, CATEGORIES);
+
+  addDropdownValues(filterCategoryDropdown, FILTERCATEGORIES);
   addDropdownValues(filterStatusDropdown, STATUSES);
   
   taskListSection.prepend(filterCategoryDropdown);
   taskListSection.prepend(filterCategoryDropdownLabel)
   taskListSection.prepend(filterStatusDropdown);
   taskListSection.prepend(filterStatusDropdownLabel)
+
+  filterCategoryDropdown.addEventListener("input", function(){
+    const filteredArray = tasks.filter((task) => task.category.includes(filterCategoryDropdown.value));
+    removeTaskList(); //remove the current List of tasks from the HTML
+    filteredArray.forEach(function(el){
+        let taskItem = document.createElement("li");
+        let taskInfo = document.createElement("div");
+        taskInfo.className = "task";
+        let taskTitle = document.createElement("h3");
+        let taskCategory = document.createElement("p");
+        let taskDeadline = document.createElement("p");
+        let taskStatus = document.createElement("p");
+        let taskEditButton = document.createElement('button')
+
+        //Give the card elements the content of the task
+        taskTitle.innerText = el.name;
+        taskCategory.innerText = `Category | ${el.category}`;
+        taskDeadline.innerText = `Deadline | ${el.deadline}`;
+
+        let now = Date.now();
+        taskDate = new Date(el.deadline).getTime();
+          // console.log(now);
+          // console.log(taskDate);
+        if (taskDate < Date.now()){
+          taskStatus.innerText = "Overdue";
+          console.log("overdue");
+        } else {
+          taskStatus.innerText = `Status | ${el.status}`;
+        }
+        
+        taskEditButton.innerText = "EDIT";
+        // taskEditButton.id = `${task.id}-edit-button`;
+        
+
+        //Display Task in HTML
+        taskInfo.append(taskTitle, taskStatus, taskCategory, taskDeadline, taskEditButton );
+        taskItem.append(taskInfo);
+        taskList.appendChild(taskItem);
+
+                //Edit Task
+        taskItem.addEventListener("click", function (e) {
+          let updateNameInput = document.createElement("input");//create new input
+          let updateDeadlineInput = document.createElement("input");
+          let updateCategoryInput = document.createElement("select");
+          let updateStatusInput = document.createElement("select");
+          updateDeadlineInput.type = "date";
+          let saveButton = document.createElement("button");//create save button
+          if (e.target === taskEditButton){
+            saveButton.innerText = "SAVE";
+            saveButton.id = "save-task-button";
+            updateNameInput.value = el.name;
+            updateDeadlineInput.value = el.deadline;
+            addDropdownValues(updateCategoryInput, CATEGORIES);
+            addDropdownValues(updateStatusInput, STATUSES);
+            updateCategoryInput.value = el.category;
+            updateStatusInput.value = el.status;
+
+            taskTitle.replaceWith(updateNameInput);//replace title with input 
+            taskDeadline.replaceWith(updateDeadlineInput);
+            taskCategory.replaceWith(updateCategoryInput);
+            taskStatus.replaceWith(updateStatusInput);
+            taskEditButton.replaceWith(saveButton);//replace edit button with save button
+
+            saveButton.addEventListener("click", function(){
+              el.name = updateNameInput.value;//adding it to the task object
+              el.deadline = updateDeadlineInput.value;
+              el.category = updateCategoryInput.value;
+              el.status = updateStatusInput.value;
+
+              taskTitle.innerText = el.name;//adding update to the title
+              taskDeadline.innerText = `Deadline | ${el.deadline}`;
+              taskCategory.innerText = `Category | ${el.category}`;
+              taskStatus.innerText = `Status | ${el.status}`
+
+              updateDeadlineInput.replaceWith(taskDeadline);
+              updateNameInput.replaceWith(taskTitle);
+              updateCategoryInput.replaceWith(taskCategory)
+              updateStatusInput.replaceWith(taskStatus)
+              saveButton.replaceWith(taskEditButton)
+              console.log(`Saved: ${el.name}`);
+            });
+
+            console.log(el.name)
+            console.log(`Edit Button clicked for task with id of ${el.id}`);
+            
+        }
+      });
+        
+    })
+    console.log(filteredArray);
+  })
 }
 
 addDropdownValues(taskCategoryInput, CATEGORIES);
@@ -70,7 +162,6 @@ function addTask(name, category, deadline, status) {
 
 //Create a task item list to be displayed in the UI
 function createTaskElements(){
-  addFilterDropDowns();
   
       for (let task of tasks) {
         //
@@ -94,8 +185,8 @@ function createTaskElements(){
 
         let now = Date.now();
         taskDate = new Date(task.deadline).getTime();
-          console.log(now);
-          console.log(taskDate);
+          // console.log(now);
+          // console.log(taskDate);
         if (taskDate < Date.now()){
           taskStatus.innerText = "Overdue";
           console.log("overdue");
@@ -190,6 +281,7 @@ function updateTask(taskId){
 
 
 displayTask();
+addFilterDropDowns()
 //==================================================================================
 
 

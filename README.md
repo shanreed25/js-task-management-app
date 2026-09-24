@@ -66,3 +66,5 @@
     - I can edit the task name, deadline, status, and category
 
 
+### Bugs
+- if I filter by category and then change category, it does not automatically morve from current filter
