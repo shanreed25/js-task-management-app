@@ -275,11 +275,6 @@ function addTask(name, category, deadline, status) {
 }
 
 function createTaskCard(task){
-      //
-        /*
-          For every task create a Task Card with this shape
-          <li><div><h3></h3><h5></h5><h5></h5><h5></h5></div><button></button></li>
-        */
         let taskItem = document.createElement("li");
         let taskInfo = document.createElement("div");
         taskInfo.className = "task";
@@ -312,7 +307,7 @@ function createTaskCard(task){
         //Display Task in HTML
         taskInfo.append(taskTitle, taskStatus, taskCategory, taskDeadline, taskEditButton );
         taskItem.append(taskInfo);
-        taskList.appendChild(taskItem);
+        // taskList.appendChild(taskItem);
 
         
 
@@ -365,14 +360,16 @@ function createTaskCard(task){
             
         }
       });
+
+      return taskItem; //return card
 }
-createTaskCard(tasks[0])
+// createTaskCard(tasks[0])
 
 //Create a task item list to be displayed in the UI
 function createTaskElements(){
-  
       for (let task of tasks) {
-        createTaskCard(task)
+        const taskCard = createTaskCard(task)
+        taskList.appendChild(taskCard);
       }
 }
 
