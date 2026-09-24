@@ -24,10 +24,7 @@ function addDropdownValues(el, options){
     dropOptionElement.value= options[i];
     dropOptionElement.innerText = options[i];
     el.appendChild(dropOptionElement);
-  
-    // console.log(dropOptionElement);
   }
-    // console.log(el);
 }
 
 function addFilterDropDowns(){
@@ -277,11 +274,8 @@ function addTask(name, category, deadline, status) {
   clearFields();
 }
 
-//Create a task item list to be displayed in the UI
-function createTaskElements(){
-  
-      for (let task of tasks) {
-        //
+function createTaskCard(task){
+      //
         /*
           For every task create a Task Card with this shape
           <li><div><h3></h3><h5></h5><h5></h5><h5></h5></div><button></button></li>
@@ -371,7 +365,15 @@ function createTaskElements(){
             
         }
       });
-    }
+}
+createTaskCard(tasks[0])
+
+//Create a task item list to be displayed in the UI
+function createTaskElements(){
+  
+      for (let task of tasks) {
+        createTaskCard(task)
+      }
 }
 
 function displayTask() {
