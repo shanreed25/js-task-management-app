@@ -15,9 +15,9 @@
 
 - [X] Add new tasks with details such as the task name, category, deadline, and status.
 - [X] Update the status of tasks to reflect their progress (e.g., “In Progress,” “Completed,” “Overdue”).
-- [] Automatically update task status based on the current date (tasks past their deadline will be marked as “Overdue”).
-- [] Filter tasks by status or category.
-- [] Persist task data using **local storage** so tasks are saved even after refreshing the page.
+- [X] Automatically update task status based on the current date (tasks past their deadline will be marked as “Overdue”).
+- [X] Filter tasks by status or category.
+- [X] Persist task data using **local storage** so tasks are saved even after refreshing the page.
 
 ---
 
@@ -44,14 +44,14 @@
 
 ### 4. Filtering Tasks
 
-- Add functionality to **filter tasks** by category or status (e.g., show only “Completed” tasks or tasks under the “Work” category).
-- Provide a dropdown or set of buttons for users to choose a filter.
-- When a filter is selected, only display the tasks that match the selected category or status.
+- [X] Add functionality to **filter tasks** by category or status (e.g., show only “Completed” tasks or tasks under the “Work” category).
+- [X] Provide a dropdown or set of buttons for users to choose a filter.
+- [X] When a filter is selected, only display the tasks that match the selected category or status.
 
 ### 5. Persisting Task Data with Local Storage
 
-- Use **local storage** to save the current state of the task list so that tasks are restored when the page is refreshed.
-- Ensure that task data (including name, category, deadline, and status) is stored and retrieved correctly.
+- [X] Use **local storage** to save the current state of the task list so that tasks are restored when the page is refreshed.
+- [X] Ensure that task data (including name, category, deadline, and status) is stored and retrieved correctly.
 
 
 ### Current Status
@@ -64,7 +64,10 @@
 - Currently when the edit button
     - the edit button is removed and a save button appears in its place
     - I can edit the task name, deadline, status, and category
-
+- Overdue working
+- Filter working
+- local storage working
 
 ### Bugs
 - if I filter by category and then change category, it does not automatically morve from current filter
+- I filterd be category and status, but one overides the other so iwant to fix this later
