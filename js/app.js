@@ -1,6 +1,6 @@
 import { CATEGORIES, STATUSES, FILTER_CATEGORIES, FILTER_STATUSES } from "./constants.js";
-import { saveTasks, loadTasks } from "./storage.js";
-
+import { saveTasks} from "./storage.js";
+import {tasks, addTask} from "./tasks.js"
 
 let taskNameInput = document.getElementById("task-name");
 let taskCategoryInput = document.getElementById("task-category");
@@ -241,8 +241,8 @@ addDropdownValues(taskStatusInput, STATUSES);
 
 
 
-let tasks = loadTasks();
-let taskId = tasks.reduce((max, task) => Math.max(max, task.id), -1) + 1;
+// let tasks = loadTasks();
+// let taskId = tasks.reduce((max, task) => Math.max(max, task.id), -1) + 1;
 
 
 
@@ -251,20 +251,20 @@ let taskId = tasks.reduce((max, task) => Math.max(max, task.id), -1) + 1;
 
 //takes the task input information and add it to the task list
 // then clears the input field
-function addTask(name, category, deadline, status) {
-  let newTask = {
-    //create the task
-    id: taskId++,
-    name: name,
-    category: category,
-    deadline: deadline,
-    status: status,
-  };
-  // console.log(newTask);
-  tasks.push(newTask); //add task to tasks list
-  saveTasks(tasks);
-  clearFields();
-}
+// function addTask(name, category, deadline, status) {
+//   let newTask = {
+//     //create the task
+//     id: taskId++,
+//     name: name,
+//     category: category,
+//     deadline: deadline,
+//     status: status,
+//   };
+//   // console.log(newTask);
+//   tasks.push(newTask); //add task to tasks list
+//   saveTasks(tasks);
+//   clearFields();
+// }
 
 function createTaskCard(task){
         let taskItem = document.createElement("li");
@@ -407,6 +407,7 @@ addTaskButton.addEventListener("click", function () {
   let taskStatus = taskStatusInput.value;
 
   addTask(taskName, taskCategory, taskDeadline, taskStatus);
+  clearFields();
   removeTaskList(); //remove the current List of tasks from the HTML
   displayTask(); //Display the task list with the new task added
   
