@@ -36,12 +36,14 @@ export function updateTask(task, changes) {
   saveTasks(tasks);
 }
 
-// A task is overdue when its deadline is in the past.
+// A task is overdue once the whole day of its deadline has 
+// passed, in the user's local time
 // A task with no deadline gives NaN here, and NaN < now is false,
 // so it is never overdue.
 export function isOverdue(task) {
   // A finished task is never overdue
   if (task.status === "Done") return false;
-  const deadline = new Date(task.deadline).getTime();
+  //added a time to the string before it is turned into a Date
+  const deadline = new Date(task.deadline + "T23:59:59").getTime();
   return deadline < Date.now();
 }

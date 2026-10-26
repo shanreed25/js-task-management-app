@@ -33,6 +33,7 @@ Tasks saved by version 1 still load, because both versions use the same `tasks` 
 - After an edit is saved, the list is drawn again with the current filters, so a task that no longer matches disappears straight away.
 - A new task follows the filters that are chosen, instead of the list going back to every task.
 - An overdue task keeps showing its status. In version 1 "Overdue" replaced the status, even when the status was Done. Now a Done task is never overdue, and an overdue task's deadline line reads `Deadline Overdue | ...` in red.
+- A task due today is no longer overdue all day. JavaScript reads a date-only string such as `"2026-11-05"` as midnight UTC, which in the US is the evening of November 4th, so the deadline had already passed when the day began. `isOverdue()` now reads the deadline as `"2026-11-05T23:59:59"`: a string with a time but no `Z` or offset is local time, and the last second of the day means a task only becomes overdue once its due date is completely over.
 - `updateTask(taskId)`, which was never called, is gone, and so is the global `taskDate` variable (it was assigned without `let`, which ES modules do not allow).
 
 ## How the code works now
@@ -77,7 +78,7 @@ The saved tasks are already loaded by then: `tasks.js` runs `loadTasks()` the fi
 - `applyFilters()` in `filters.js` keeps the tasks that match both dropdowns ("All" matches every task) and passes them to `renderTasks()`.
 - `renderTasks(list, onSave)` in `render.js` empties the list, shows the "no tasks" message only when `list` is empty, and appends one card per task from `createTaskCard()`.
 - `createTaskCard()` in `taskCard.js` always shows the task's status. When `isOverdue(task)` is true, the deadline line reads `Deadline Overdue | ...` and gets the `overdue` class, which turns the whole line red and bold.
-- `isOverdue()` in `tasks.js` is true when the deadline is in the past and the status is not Done. A task with no deadline is never overdue.
+- `isOverdue()` in `tasks.js` is true when the status is not Done and the end of the deadline day (11:59:59 PM in the user's time zone) has passed. A task with no deadline is never overdue: an empty deadline gives an invalid date (`NaN`), and `NaN < Date.now()` is false.
 
 ### Editing a task
 1. Clicking EDIT on a card runs `showEditMode()` in `taskCard.js`, which swaps the card's text for inputs holding the current values and the EDIT button for SAVE.
@@ -88,5 +89,4 @@ The saved tasks are already loaded by then: `tasks.js` runs `loadTasks()` the fi
 `createTaskCard(task, onSave)` and `setupForm(onTaskAdded)` take the redraw function as a parameter instead of importing it. `filters.js` imports `render.js`, which imports `taskCard.js`, so if `taskCard.js` imported `filters.js` the files would import each other in a circle. Passing the function in keeps the imports going one way.
 
 ## Still open
-- A deadline such as `2026-11-05` is read as midnight UTC, so in time zones behind UTC (such as the US) a task due today shows as overdue for the whole day.
 - Tasks cannot be deleted yet.
