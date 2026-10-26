@@ -1,33 +1,91 @@
-# Task management App
+# Task Management App
 
 > A Task Management App that allows users to add tasks with deadlines, assign categories, and update the status of each task
 
+**This is version 2 (the `main` branch).** Version 1, where all of the JavaScript is in one `app.js` file, is on the [`ps-sba`](https://github.com/shanreed25/js-task-management-app/tree/ps-sba) branch.
+
 ## Functionality
 - Add new tasks with details such as the task name, category, deadline, and status.
-- Update the status of tasks to reflect their progress (e.g., “In Progress,” “Completed,” “Overdue”).
-- Automatically update task status based on the current date (tasks past their deadline will be marked as “Overdue”).
+- Update the status of tasks to reflect their progress (e.g., "In Progress," "Completed," "Overdue").
+- Automatically update task status based on the current date (tasks past their deadline will be marked as "Overdue").
 - Filter tasks by status or category.
-- Persist task data using local storage so tasks are saved even after refreshing the page
+- Persist task data using local storage so tasks are saved even after refreshing the page.
 
+## How to run it
+The JavaScript is split into ES modules, which browsers will not run from a file opened directly (`file://`). Open `index.html` with the VS Code Live Server extension (right-click `index.html`, then Open with Live Server), or any other local server.
 
-## Reflection
-> One of the hardest parts was a simplest feature, surprisingly, the "no tasks" message. I kept trying to create and remove that element on every render, which added extra logic each time. Once I stopped overthinking it, I put the message in the HTML once and showed or hid it based on whether the filtered list was empty. The lesson was that stable parts of the page belong in the HTML, and JavaScript only needs to toggle them. Local storage was also a bit tricky because it was one of the last things I did I had to refactor some things to get it to work. Filtering was a little hard I got the category to filter but could not figure out why status was not filtering correctly. Testing with `console.log()` made bugs easier to isolate. With more time, I would have fix the bug in the status filter, added deleting tasks, made the UI look a little better and refactored my code.
+Tasks saved by version 1 still load, because both versions use the same `tasks` key in localStorage.
 
+## What changed in version 2
 
-### Current Status
-- Code allows you to type task in input and choose a catgory, deadline, and status then click add task button to add the new task. 
-- Each task has an id properrty that I will need to access a task to update it
-- The task list containing all the tasks, and their category, deadline, status and an edit button will be displayed in the HTML page. 
-- If there are no tasks, there is a no task message displayed.
-- Each task has an event listener that is inside the createTaskElements() function because this is where I have access to the id.
-- The category and status options in the form are added through JavaScript when the page loads
-- Currently when the edit button
-    - the edit button is removed and a save button appears in its place
-    - I can edit the task name, deadline, status, and category
-- Overdue working
-- Filter working
-- local storage working
+### Why
+- `app.js` was one 426-line file, which made it hard to read and hard to change.
+- The code that builds a task card (title, status, overdue check, Edit button, save handler) was written three times: in `createTaskCard()` and again inside the category filter and the status filter. That is about 250 of the 426 lines.
+- The copies had drifted apart. The ones inside the filters never called `saveTaskList()`, so an edit made while a filter was on was lost on refresh.
+- Each filter dropdown had its own listener, so choosing a status threw away the category filter, and the reverse.
 
-### Bugs
-- if I filter by category and then change category, it does not automatically morve from current filter
-- I filterd be category and status, but one overides the other so iwant to fix this later
+### What changed
+- The JavaScript is now nine files in a `js/` folder, one job each, connected with `import` and `export`. `index.html` loads `js/app.js` with `<script type="module">`.
+- A task card is built in one place, `taskCard.js`, and everything that shows tasks goes through one function, `renderTasks()`.
+- Both filter dropdowns call one `applyFilters()` that checks category and status together, so one filter no longer overrides the other.
+- Choosing "All" in a filter shows every task. Before, the code kept going after showing the list and filtered for a category named "All", which emptied the list.
+- Every edit goes through `updateTask()`, which always saves to localStorage, so edits made while a filter is on are kept.
+- After an edit is saved, the list is drawn again with the current filters, so a task that no longer matches disappears straight away.
+- A new task follows the filters that are chosen, instead of the list going back to every task.
+- `updateTask(taskId)`, which was never called, is gone, and so is the global `taskDate` variable (it was assigned without `let`, which ES modules do not allow).
+
+## How the code works now
+
+### Files
+`index.html` loads only `js/app.js`, and the `import` lines in each file load the rest.
+
+| File | What it does |
+| --- | --- |
+| `js/app.js` | The starting point: sets up the filters and the form, then draws the saved tasks |
+| `js/constants.js` | The category and status lists (the filter lists are built from them, with "All" added) |
+| `js/storage.js` | Saving and loading tasks in localStorage (the only file that uses localStorage) |
+| `js/tasks.js` | The task list and the functions that change it: `addTask()`, `updateTask()`, `isOverdue()` |
+| `js/dom.js` | The elements from `index.html`, found once, and `addDropdownValues()` |
+| `js/taskCard.js` | `createTaskCard()`: builds the card for one task, with its edit and save buttons |
+| `js/render.js` | `renderTasks()`: clears the list and draws a card for each task it is given |
+| `js/filters.js` | The Filter By Status and Filter By Category dropdowns and `applyFilters()` |
+| `js/form.js` | The Add a task form: fills its dropdowns, adds the task, clears the fields |
+
+### How the files depend on each other
+```
+app.js ─┬─> form.js ────> tasks.js ──> storage.js
+        └─> filters.js ─> render.js ─> taskCard.js ──> tasks.js
+              (each file also imports dom.js and constants.js)
+```
+- Imports go one way only, so no two files import each other.
+- `tasks.js` and `storage.js` never touch the page: they only work with task objects and localStorage.
+
+### When the page loads
+1. `app.js` calls `addFilterDropdowns()`, which creates the two filter dropdowns (both set to "All") and adds them to the Tasks section.
+2. It calls `setupForm(applyFilters)`, which fills the form's category and status dropdowns and listens for clicks on Add Task.
+3. It calls `applyFilters()`. With both filters on "All", every saved task is drawn.
+
+The saved tasks are already loaded by then: `tasks.js` runs `loadTasks()` the first time any file imports it, and works out the next id as one more than the highest saved id.
+
+### Adding a task
+1. Clicking Add Task runs the handler in `form.js`. An empty name stops with an alert.
+2. `addTask()` in `tasks.js` creates the task object, pushes it onto `tasks` and saves the list.
+3. `form.js` clears the form, then calls `onTaskAdded`, which is `applyFilters`, so the list is drawn again with the current filters.
+
+### Showing the list
+- `applyFilters()` in `filters.js` keeps the tasks that match both dropdowns ("All" matches every task) and passes them to `renderTasks()`.
+- `renderTasks(list, onSave)` in `render.js` empties the list, shows the "no tasks" message only when `list` is empty, and appends one card per task from `createTaskCard()`.
+- `createTaskCard()` in `taskCard.js` shows "Overdue" instead of the status when `isOverdue(task)` is true (the deadline is in the past).
+
+### Editing a task
+1. Clicking EDIT on a card runs `showEditMode()` in `taskCard.js`, which swaps the card's text for inputs holding the current values and the EDIT button for SAVE.
+2. Clicking SAVE calls `updateTask()`, which copies the new values onto the task and saves the list.
+3. The card then calls `onSave`, which is `applyFilters`, so the list is drawn again with the filters still on.
+
+### Why some functions are passed in as parameters
+`createTaskCard(task, onSave)` and `setupForm(onTaskAdded)` take the redraw function as a parameter instead of importing it. `filters.js` imports `render.js`, which imports `taskCard.js`, so if `taskCard.js` imported `filters.js` the files would import each other in a circle. Passing the function in keeps the imports going one way.
+
+## Still open
+- An overdue task shows "Overdue" instead of its status, even when the status is Done.
+- A deadline such as `2026-11-05` is read as midnight UTC, so in time zones behind UTC (such as the US) a task due today shows as Overdue for the whole day.
+- Tasks cannot be deleted yet.
