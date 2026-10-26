@@ -1,15 +1,26 @@
 import { CATEGORIES, STATUSES, FILTER_CATEGORIES, FILTER_STATUSES } from "./constants.js";
 import { saveTasks} from "./storage.js";
 import {tasks, addTask} from "./tasks.js"
+import { 
+  taskNameInput, 
+  taskCategoryInput,
+  taskDeadlineInput,
+  taskStatusInput,
+  addTaskButton,
+  taskList,
+  taskListSection,
+  noTaskMessage,
+  addDropdownValues
+ } from "./dom.js";
 
-let taskNameInput = document.getElementById("task-name");
-let taskCategoryInput = document.getElementById("task-category");
-let taskDeadlineInput = document.getElementById("task-deadline");
-let taskStatusInput = document.getElementById("task-status");
-let addTaskButton = document.getElementById("add-task-button");
-let taskList = document.getElementById("task-list");
-let taskListSection = document.getElementById("task-list-section");
-let noTaskMessage = document.getElementById("no-task-message");
+// let taskNameInput = document.getElementById("task-name");
+// let taskCategoryInput = document.getElementById("task-category");
+// let taskDeadlineInput = document.getElementById("task-deadline");
+// let taskStatusInput = document.getElementById("task-status");
+// let addTaskButton = document.getElementById("add-task-button");
+// let taskList = document.getElementById("task-list");
+// let taskListSection = document.getElementById("task-list-section");
+// let noTaskMessage = document.getElementById("no-task-message");
 
 // // CATEGORIES[0] is the default used by clearFields()
 // const CATEGORIES = [ "General", "Personal", "Work",];
@@ -21,15 +32,15 @@ let noTaskMessage = document.getElementById("no-task-message");
 
 
 
-function addDropdownValues(el, options){
+// function addDropdownValues(el, options){
   
-  for (let i =0; i < options.length; i++){
-    let dropOptionElement = document.createElement("option");
-    dropOptionElement.value= options[i];
-    dropOptionElement.innerText = options[i];
-    el.appendChild(dropOptionElement);
-  }
-}
+//   for (let i =0; i < options.length; i++){
+//     let dropOptionElement = document.createElement("option");
+//     dropOptionElement.value= options[i];
+//     dropOptionElement.innerText = options[i];
+//     el.appendChild(dropOptionElement);
+//   }
+// }
 
 function addFilterDropDowns(){
   let filterCategoryDropdown = document.createElement("select");
