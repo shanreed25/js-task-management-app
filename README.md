@@ -1,4 +1,5 @@
 # Task management App
+**This beanch is version 1 see [Updates](#updates) for what has changed on the main branch**
 
 > A Task Management App that allows users to add tasks with deadlines, assign categories, and update the status of each task
 
@@ -31,3 +32,17 @@
 ### Bugs
 - if I filter by category and then change category, it does not automatically morve from current filter
 - I filterd be category and status, but one overides the other so iwant to fix this later
+---
+
+
+## Updates
+> The ps-sba branch has code that was the first version, main branch has updated version(main branch) with the following
+
+#### Added ES modules because `app.js` is hard to read
+> Task card code appears three times, the code that builds a card (title, status, overdue check, Edit button, save handler) is in `createTaskCard()` and two more copies sit inside the category and status filter. That's about 250 of the 426 lines. The filter copies have drifte because they never call `saveTaskList()`, so an edit made while a filter is on is lost when you refresh
+
+#### Bug fixes
+> Both dropdowns are checked together, one filter no longer overrides the other. Choosing "All" works now too, this code(ps-sba branch) calls `displayTask()` but doesn't return, so the code keeps going and filters for a category literally named "All", which clears the list.
+
+
+---
