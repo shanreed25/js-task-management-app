@@ -52,7 +52,7 @@ export function applyFilters() {
     return categoryMatches && statusMatches;
   });
 
-  // applyFilters is passed as onSave, so saving an edit redraws the
+  // applyFilters is passed as onChange, so saving an edit redraws the
   // list with the filters still applied
   renderTasks(filtered, applyFilters);
 }
