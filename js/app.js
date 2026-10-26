@@ -1,5 +1,5 @@
 import { CATEGORIES, STATUSES, FILTER_CATEGORIES, FILTER_STATUSES } from "./constants.js";
-
+import { saveTasks, loadTasks } from "./storage.js";
 
 
 let taskNameInput = document.getElementById("task-name");
@@ -239,21 +239,9 @@ function addFilterDropDowns(){
 addDropdownValues(taskCategoryInput, CATEGORIES);
 addDropdownValues(taskStatusInput, STATUSES);
 
-function saveTaskList(){
-  localStorage.setItem("tasks", JSON.stringify(tasks))
-}
 
-function addTasksList(){
-  let saved = localStorage.getItem("tasks");
-  if (saved === null){
-    return [];
-  }
 
-  let savedList = JSON.parse(saved);
-  return savedList
-}
-
-let tasks = addTasksList();
+let tasks = loadTasks();
 let taskId = tasks.reduce((max, task) => Math.max(max, task.id), -1) + 1;
 
 
@@ -274,7 +262,7 @@ function addTask(name, category, deadline, status) {
   };
   // console.log(newTask);
   tasks.push(newTask); //add task to tasks list
-  saveTaskList();
+  saveTasks(tasks);
   clearFields();
 }
 
@@ -344,7 +332,7 @@ function createTaskCard(task){
               task.deadline = updateDeadlineInput.value;
               task.category = updateCategoryInput.value;
               task.status = updateStatusInput.value;
-              saveTaskList()
+              saveTasks(tasks)
 
               taskTitle.innerText = task.name;//adding update to the title
               taskDeadline.innerText = `Deadline | ${task.deadline}`;
