@@ -1,4 +1,4 @@
-# Task Management App
+# JavaScript Task Management App
 
 > A Task Management App that allows users to add tasks with deadlines, assign categories, and update the status of each task
 
