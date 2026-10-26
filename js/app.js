@@ -277,95 +277,95 @@ addDropdownValues(taskStatusInput, STATUSES);
 //   clearFields();
 // }
 
-function createTaskCard(task){
-        let taskItem = document.createElement("li");
-        let taskInfo = document.createElement("div");
-        taskInfo.className = "task";
-        let taskTitle = document.createElement("h3");
-        let taskCategory = document.createElement("p");
-        let taskDeadline = document.createElement("p");
-        let taskStatus = document.createElement("p");
-        let taskEditButton = document.createElement('button')
+// function createTaskCard(task){
+//         let taskItem = document.createElement("li");
+//         let taskInfo = document.createElement("div");
+//         taskInfo.className = "task";
+//         let taskTitle = document.createElement("h3");
+//         let taskCategory = document.createElement("p");
+//         let taskDeadline = document.createElement("p");
+//         let taskStatus = document.createElement("p");
+//         let taskEditButton = document.createElement('button')
 
-        //Give the card elements the content of the task
-        taskTitle.innerText = task.name;
-        taskCategory.innerText = `Category | ${task.category}`;
-        taskDeadline.innerText = `Deadline | ${task.deadline}`;
+//         //Give the card elements the content of the task
+//         taskTitle.innerText = task.name;
+//         taskCategory.innerText = `Category | ${task.category}`;
+//         taskDeadline.innerText = `Deadline | ${task.deadline}`;
 
-        let now = Date.now();
-        const taskDate = new Date(task.deadline).getTime();
-          // console.log(now);
-          // console.log(taskDate);
-        if (taskDate < Date.now()){
-          taskStatus.innerText = "Overdue";
-          console.log("overdue");
-        } else {
-          taskStatus.innerText = `Status | ${task.status}`;
-        }
+//         let now = Date.now();
+//         const taskDate = new Date(task.deadline).getTime();
+//           // console.log(now);
+//           // console.log(taskDate);
+//         if (taskDate < Date.now()){
+//           taskStatus.innerText = "Overdue";
+//           console.log("overdue");
+//         } else {
+//           taskStatus.innerText = `Status | ${task.status}`;
+//         }
         
-        taskEditButton.innerText = "EDIT";
-        // taskEditButton.id = `${task.id}-edit-button`;
-        
-
-        //Display Task in HTML
-        taskInfo.append(taskTitle, taskStatus, taskCategory, taskDeadline, taskEditButton );
-        taskItem.append(taskInfo);
-        // taskList.appendChild(taskItem);
-
+//         taskEditButton.innerText = "EDIT";
+//         // taskEditButton.id = `${task.id}-edit-button`;
         
 
-        //Edit Task
-        taskItem.addEventListener("click", function (e) {
-          let updateNameInput = document.createElement("input");//create new input
-          let updateDeadlineInput = document.createElement("input");
-          let updateCategoryInput = document.createElement("select");
-          let updateStatusInput = document.createElement("select");
-          updateDeadlineInput.type = "date";
-          let saveButton = document.createElement("button");//create save button
-          if (e.target === taskEditButton){
-            saveButton.innerText = "SAVE";
-            saveButton.id = "save-task-button";
-            updateNameInput.value = task.name;
-            updateDeadlineInput.value = task.deadline;
-            addDropdownValues(updateCategoryInput, CATEGORIES);
-            addDropdownValues(updateStatusInput, STATUSES);
-            updateCategoryInput.value = task.category;
-            updateStatusInput.value = task.status;
+//         //Display Task in HTML
+//         taskInfo.append(taskTitle, taskStatus, taskCategory, taskDeadline, taskEditButton );
+//         taskItem.append(taskInfo);
+//         // taskList.appendChild(taskItem);
 
-            taskTitle.replaceWith(updateNameInput);//replace title with input 
-            taskDeadline.replaceWith(updateDeadlineInput);
-            taskCategory.replaceWith(updateCategoryInput);
-            taskStatus.replaceWith(updateStatusInput);
-            taskEditButton.replaceWith(saveButton);//replace edit button with save button
+        
 
-            saveButton.addEventListener("click", function(){
-              task.name = updateNameInput.value;//adding it to the task object
-              task.deadline = updateDeadlineInput.value;
-              task.category = updateCategoryInput.value;
-              task.status = updateStatusInput.value;
-              saveTasks(tasks)
+//         //Edit Task
+//         taskItem.addEventListener("click", function (e) {
+//           let updateNameInput = document.createElement("input");//create new input
+//           let updateDeadlineInput = document.createElement("input");
+//           let updateCategoryInput = document.createElement("select");
+//           let updateStatusInput = document.createElement("select");
+//           updateDeadlineInput.type = "date";
+//           let saveButton = document.createElement("button");//create save button
+//           if (e.target === taskEditButton){
+//             saveButton.innerText = "SAVE";
+//             saveButton.id = "save-task-button";
+//             updateNameInput.value = task.name;
+//             updateDeadlineInput.value = task.deadline;
+//             addDropdownValues(updateCategoryInput, CATEGORIES);
+//             addDropdownValues(updateStatusInput, STATUSES);
+//             updateCategoryInput.value = task.category;
+//             updateStatusInput.value = task.status;
 
-              taskTitle.innerText = task.name;//adding update to the title
-              taskDeadline.innerText = `Deadline | ${task.deadline}`;
-              taskCategory.innerText = `Category | ${task.category}`;
-              taskStatus.innerText = `Status | ${task.status}`
+//             taskTitle.replaceWith(updateNameInput);//replace title with input 
+//             taskDeadline.replaceWith(updateDeadlineInput);
+//             taskCategory.replaceWith(updateCategoryInput);
+//             taskStatus.replaceWith(updateStatusInput);
+//             taskEditButton.replaceWith(saveButton);//replace edit button with save button
 
-              updateDeadlineInput.replaceWith(taskDeadline);
-              updateNameInput.replaceWith(taskTitle);
-              updateCategoryInput.replaceWith(taskCategory)
-              updateStatusInput.replaceWith(taskStatus)
-              saveButton.replaceWith(taskEditButton)
-              console.log(`Saved: ${task.name}`);
-            });
+//             saveButton.addEventListener("click", function(){
+//               task.name = updateNameInput.value;//adding it to the task object
+//               task.deadline = updateDeadlineInput.value;
+//               task.category = updateCategoryInput.value;
+//               task.status = updateStatusInput.value;
+//               saveTasks(tasks)
 
-            console.log(task.name)
-            console.log(`Edit Button clicked for task with id of ${task.id}`);
+//               taskTitle.innerText = task.name;//adding update to the title
+//               taskDeadline.innerText = `Deadline | ${task.deadline}`;
+//               taskCategory.innerText = `Category | ${task.category}`;
+//               taskStatus.innerText = `Status | ${task.status}`
+
+//               updateDeadlineInput.replaceWith(taskDeadline);
+//               updateNameInput.replaceWith(taskTitle);
+//               updateCategoryInput.replaceWith(taskCategory)
+//               updateStatusInput.replaceWith(taskStatus)
+//               saveButton.replaceWith(taskEditButton)
+//               console.log(`Saved: ${task.name}`);
+//             });
+
+//             console.log(task.name)
+//             console.log(`Edit Button clicked for task with id of ${task.id}`);
             
-        }
-      });
+//         }
+//       });
 
-      return taskItem; //return card
-}
+//       return taskItem; //return card
+// }
 // createTaskCard(tasks[0])
 
 //Create a task item list to be displayed in the UI
