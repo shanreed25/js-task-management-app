@@ -1,4 +1,5 @@
-# Task management App
+# JavaScript Task Management App
+
 **This branch is version 1 see [Updates](#updates) for what has changed on version 2(main branch)**
 
 > A Task Management App that allows users to add tasks with deadlines, assign categories, and update the status of each task
