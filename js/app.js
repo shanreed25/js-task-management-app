@@ -369,17 +369,17 @@ addDropdownValues(taskStatusInput, STATUSES);
 // createTaskCard(tasks[0])
 
 //Create a task item list to be displayed in the UI
-function createTaskElements(){
-      for (let task of tasks) {
-        const taskCard = createTaskCard(task)
-        taskList.appendChild(taskCard);
-      }
-}
+// function createTaskElements(){
+//       for (let task of tasks) {
+//         const taskCard = createTaskCard(task)
+//         taskList.appendChild(taskCard);
+//       }
+// }
 
-function displayTask() {
-    noTaskMessage.hidden = tasks.length > 0;//Clears no tasks message when there are tasks
-    createTaskElements();
-}
+// function displayTask() {
+//     noTaskMessage.hidden = tasks.length > 0;//Clears no tasks message when there are tasks
+//     createTaskElements();
+// }
 
 function clearFields() {
   taskNameInput.value = "";
@@ -388,9 +388,9 @@ function clearFields() {
 }
 
 //removes the taskList from the HTML page
-function removeTaskList() {
-  taskList.innerHTML = "";
-}
+// function removeTaskList() {
+//   taskList.innerHTML = "";
+// }
 
 
 function updateTask(taskId){
