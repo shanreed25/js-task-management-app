@@ -1,19 +1,21 @@
 // taskCard.js
-// Builds the card for one task: its title, status, category, deadline and
-// an EDIT button that swaps the text for inputs. This is the only place a
-// card is built. Before the split, this code was copied into each filter.
+// Builds the card for one task: its title, status, category, deadline, 
+// EDIT and DELETE buttons that swaps the text for inputs. This is the 
+// only place a card is built. Before the split, this code was copied 
+// into each filter.
 
 import { CATEGORIES, STATUSES } from "./constants.js";
 import { addDropdownValues } from "./dom.js";
-import { updateTask, isOverdue } from "./tasks.js";
+import { updateTask, deleteTask, isOverdue } from "./tasks.js";
 
 // Returns a new <li> for the task. It does not add it to the page:
 // renderTasks() in render.js does that.
 //
-// onSave is a function the card calls after the task is saved. renderTasks()
-// passes one in that redraws the list, so an edited task that no longer
-// matches the current filter disappears straight away.
-export function createTaskCard(task, onSave) {
+// onChange is a function the card calls after the task is saved or
+// deleted. renderTasks() passes one in that redraws the list, so an edited
+// task that no longer matches the current filter, or a deleted task,
+// disappears straight away.
+export function createTaskCard(task, onChange) {
   const taskItem = document.createElement("li");
   const taskInfo = document.createElement("div");
   taskInfo.className = "task";
@@ -23,12 +25,14 @@ export function createTaskCard(task, onSave) {
   const taskCategory = document.createElement("p");
   const taskDeadline = document.createElement("p");
   const taskEditButton = document.createElement("button");
+  const taskDeleteButton = document.createElement("button");
 
   // Give the card elements the content of the task
   taskTitle.innerText = task.name;
   taskCategory.innerText = `Category | ${task.category}`;
   taskStatus.innerText = `Status | ${task.status}`;
   taskEditButton.innerText = "EDIT";
+  taskDeleteButton.innerText = "DELETE";
 
   if (isOverdue(task)) {
     taskDeadline.innerText = `Deadline Overdue | ${task.deadline}`;
@@ -37,22 +41,29 @@ export function createTaskCard(task, onSave) {
     taskDeadline.innerText = `Deadline | ${task.deadline}`;
   }
 
-
-  
-
-  taskInfo.append(taskTitle, taskStatus, taskCategory, taskDeadline, taskEditButton);
+  taskInfo.append(taskTitle, taskStatus, taskCategory, taskDeadline, taskEditButton, taskDeleteButton);
   taskItem.append(taskInfo);
 
   // Clicking EDIT turns the card into a small form
   taskEditButton.addEventListener("click", function () {
-    showEditMode(task, onSave, {
+    showEditMode(task, onChange, {
       taskTitle,
       taskStatus,
       taskCategory,
       taskDeadline,
       taskEditButton,
+      taskDeleteButton
     });
   });
+
+  // Clicking DELETE removes the task, then redraws the list
+  taskDeleteButton.addEventListener("click", function () {
+    if (confirm(`Delete "${task.name}"?`)) {
+      deleteTask(task);
+      onChange();
+    }
+  });
+
 
   return taskItem;
 }
@@ -60,7 +71,7 @@ export function createTaskCard(task, onSave) {
 // Replaces each piece of text on the card with an input that holds the
 // task's current value, and the EDIT button with a SAVE button.
 // `parts` holds the card's text elements, so they can be swapped out.
-function showEditMode(task, onSave, parts) {
+function showEditMode(task, onChange, parts) {
   const nameInput = document.createElement("input");
   nameInput.value = task.name;
 
@@ -84,6 +95,8 @@ function showEditMode(task, onSave, parts) {
   parts.taskCategory.replaceWith(categoryInput);
   parts.taskDeadline.replaceWith(deadlineInput);
   parts.taskEditButton.replaceWith(saveButton);
+  parts.taskDeleteButton.remove();
+
 
   saveButton.addEventListener("click", function () {
     // updateTask() changes the task object and saves the list to localStorage
@@ -96,6 +109,6 @@ function showEditMode(task, onSave, parts) {
 
     // Redraw the list. The new card is built from the updated task,
     // so there is no need to swap the inputs back by hand.
-    onSave();
+    onChange();
   });
 }

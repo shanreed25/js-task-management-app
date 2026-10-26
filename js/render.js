@@ -9,15 +9,16 @@ import { createTaskCard } from "./taskCard.js";
 // Clears the current cards and draws one card per task in `list`.
 // `list` can be every task or only the ones that match the filters.
 //
-// onSave is passed on to each card, which calls it after an edit is saved
-// (filters.js passes applyFilters, so the list is redrawn with the filters).
-export function renderTasks(list, onSave) {
+// onChange is passed on to each card, which calls it after the task is
+// edited or deleted (filters.js passes applyFilters, so the list is
+// redrawn with the filters).
+export function renderTasks(list, onChange) {
   taskList.innerHTML = ""; // remove the cards that are on the page now
 
   // The message is written once in index.html; here it is only shown or hidden
   noTaskMessage.hidden = list.length > 0;
 
   for (const task of list) {
-    taskList.appendChild(createTaskCard(task, onSave));
+    taskList.appendChild(createTaskCard(task, onChange));
   }
 }

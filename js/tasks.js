@@ -36,6 +36,16 @@ export function updateTask(task, changes) {
   saveTasks(tasks);
 }
 
+// Removes a task from the list and saves the list.
+export function deleteTask(task) {
+  const index = tasks.indexOf(task);
+  if (index !== -1) {
+    tasks.splice(index, 1);
+    saveTasks(tasks);
+  }
+}
+
+
 // A task is overdue once the whole day of its deadline has 
 // passed, in the user's local time
 // A task with no deadline gives NaN here, and NaN < now is false,
