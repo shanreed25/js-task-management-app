@@ -27,9 +27,18 @@ export function createTaskCard(task, onSave) {
   // Give the card elements the content of the task
   taskTitle.innerText = task.name;
   taskCategory.innerText = `Category | ${task.category}`;
-  taskDeadline.innerText = `Deadline | ${task.deadline}`;
-  taskStatus.innerText = isOverdue(task) ? "Overdue" : `Status | ${task.status}`;
+  taskStatus.innerText = `Status | ${task.status}`;
   taskEditButton.innerText = "EDIT";
+
+  if (isOverdue(task)) {
+    taskDeadline.innerText = `Deadline Overdue | ${task.deadline}`;
+    taskDeadline.classList.add("overdue");
+  } else {
+    taskDeadline.innerText = `Deadline | ${task.deadline}`;
+  }
+
+
+  
 
   taskInfo.append(taskTitle, taskStatus, taskCategory, taskDeadline, taskEditButton);
   taskItem.append(taskInfo);

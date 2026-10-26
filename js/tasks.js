@@ -40,6 +40,8 @@ export function updateTask(task, changes) {
 // A task with no deadline gives NaN here, and NaN < now is false,
 // so it is never overdue.
 export function isOverdue(task) {
+  // A finished task is never overdue
+  if (task.status === "Done") return false;
   const deadline = new Date(task.deadline).getTime();
   return deadline < Date.now();
 }
